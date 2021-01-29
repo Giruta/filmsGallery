@@ -1,5 +1,6 @@
 import React from 'react';
 import { moviesData } from '../moviesData';
+import MovieItem from "./MovieItem";
 
 let title = 'HELLO MOVIES GALLERY';
 
@@ -10,9 +11,11 @@ class App extends React.Component {
     this.state = {
       movies: moviesData
     }
+
+    //this.removeMovie = this.removeMovie.bind(this);
   }
 
-  removeMovie(movie) {
+  removeMovie = (movie) => {
     const updateMovie = this.state.movies.filter(function (item) {
       return item.id !== movie.id;
     });
@@ -27,14 +30,11 @@ class App extends React.Component {
         <h1>{title}</h1>
         <div>
           {this.state.movies.map(movie => {
-            return (
-              <div key={movie.id}>
-                <p>{movie.title}</p>
-                <button onClick={this.removeMovie.bind(this, movie)}>
-                  Delete movie
-                </button>
-              </div>
-            )
+            return <MovieItem
+              key={movie.id}
+              movie={movie}
+              removeMovie={this.removeMovie}
+            />
           })}
         </div>
       </>
