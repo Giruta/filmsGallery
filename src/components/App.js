@@ -16,33 +16,45 @@ class App extends React.Component {
     //this.removeMovie = this.removeMovie.bind(this);
   }
 
-  removeMovie = (movie) => {
-    const updateMovie = this.state.movies.filter(function (item) {
+  removeMovie = movie => {
+    const updateMovies = this.state.movies.filter(function (item) {
       return item.id !== movie.id;
     });
     this.setState({
-      movies:updateMovie
+      movies:updateMovies
     });
   };
 
   addMovieToWillWatch = movie => {
-    // const updateMoviesWillWatch = [...this.state.moviesWillWatch];
-    // updateMoviesWillWatch.push(movie);
 
     const updateMoviesWillWatch = [...this.state.moviesWillWatch, movie];
+
+    console.log('this.state.moviesWillWatch after add = ', this.state.moviesWillWatch);
+    console.log('this.state.moviesWillWatch.length after add= ', this.state.moviesWillWatch.length);
 
     this.setState({
       moviesWillWatch: updateMoviesWillWatch
     });
   };
 
+  removeMovieFromWillWatch = movie => {
+
+    const updateMoviesWillWatch = this.state.moviesWillWatch.filter(function (item) {
+      return item.id !== movie.id;
+    })
+
+    this.setState({
+      moviesWillWatch: updateMoviesWillWatch,
+    })
+  };
+
   render() {
     return (
       <>
-        <h1>{title}</h1>
+        <h1 className='text-center'>{title}</h1>
         <div className='container'>
           <div className='row'>
-            <div className='col-9'>
+            <div className='col-10'>
               <div className='row'>
                 {this.state.movies.map(movie => {
                   return (
@@ -51,17 +63,17 @@ class App extends React.Component {
                         movie={movie}
                         removeMovie={this.removeMovie}
                         addMovieToWillWatch={this.addMovieToWillWatch}
+                        removeMovieFromWillWatch={this.removeMovieFromWillWatch}
                       />
                     </div>
                   )
                 })}
               </div>
             </div>
-            <div className='col-3'>
+            <div className='col-2'>
               <p>Will Watch: {this.state.moviesWillWatch.length}</p>
             </div>
           </div>
-
         </div>
       </>
     )
