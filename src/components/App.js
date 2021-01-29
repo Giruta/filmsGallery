@@ -12,13 +12,32 @@ class App extends React.Component {
     }
   }
 
+  removeMovie(movie) {
+    const updateMovie = this.state.movies.filter(function (item) {
+      return item.id !== movie.id;
+    });
+    this.setState({
+      movies:updateMovie
+    });
+  }
+
   render() {
     return (
-      <div>
-        {this.state.movies.map(function (movie) {
-          return <p>{movie.title}</p>
-        })}
-      </div>
+      <>
+        <h1>{title}</h1>
+        <div>
+          {this.state.movies.map(movie => {
+            return (
+              <div key={movie.id}>
+                <p>{movie.title}</p>
+                <button onClick={this.removeMovie.bind(this, movie)}>
+                  Delete movie
+                </button>
+              </div>
+            )
+          })}
+        </div>
+      </>
     )
   }
 }
